@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    </head>
+    <body>
+        <h1>Get Person</h1>
+        <form>
+            <input type="text" id="id" name="id" />
+            <input type="button" id="getDetails" value="Get Details">
+        </form>
+        <h2>Details</h2>
+        <div>
+            <p id="firstName"></p>
+            <p id="lastName"></p>
+            <p id="dob"></p>
+        </div>
+        <script>
+        $(document).ready(function() {
+            $("#getDetails").click(function() {
+                    var id = $("#id").val();
+                    $.getJSON("/api/getPerson/" + id)
+                    .done(function(results) {
+                        $("#firstName")[0].innerHTML = results.first_name;
+                        $("#lastName")[0].innerHTML = results.last_name;
+                        $("#dob")[0].innerHTML = results.dob;
+                    })
+                    .error(function(xhr, testStatus, errorThrown) {
+                        console.log(errorThrown);
+                    });
+            });
+        })
+        </script>
+    </body>
+</html>
